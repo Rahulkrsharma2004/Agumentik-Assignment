@@ -5,7 +5,7 @@ const connectDB = require('./config/db.js');
 const authRoutes = require('./routes/authRoutes.js');
 const productRoutes = require('./routes/productRoutes.js');
 const orderRoutes = require('./routes/orderRoutes.js');
-// const paymentRoutes = require('./routes/paymentRoutes.js');
+const paymentRoutes = require('./routes/paymentRoutes.js');
 
 dotenv.config();
 connectDB();
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
-// app.use('/api/payment', paymentRoutes);
+app.use('/api/payment', paymentRoutes);
 
 
 app.get('/', (req, res) => {

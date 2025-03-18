@@ -10,7 +10,6 @@ router.get('/', authMiddleware, async (req, res) => {
     res.json(orders);
 });
 
-// Create an order
 router.post('/', authMiddleware, async (req, res) => {
     const { products, totalPrice } = req.body;
     const order = new Order({ user: req.user.id, products, totalPrice });
