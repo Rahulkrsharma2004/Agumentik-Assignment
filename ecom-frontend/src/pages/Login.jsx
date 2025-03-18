@@ -10,11 +10,6 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/products");
-    }
-  }, [isLoggedIn, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,10 +21,13 @@ const Login = () => {
         { email, password }
       );
 
-      if (response.data.success) {
+      console.log(response.data);
+
+      if (response.data.message == "Login successful") {
         alert("Login Successful!");
         localStorage.setItem("token", response.data.token);
-        setIsLoggedIn(true); // Update state to trigger navigation
+        setIsLoggedIn(true);
+        navigate("/products");
       } else {
         alert(response.data.message || "Invalid credentials!");
       }
