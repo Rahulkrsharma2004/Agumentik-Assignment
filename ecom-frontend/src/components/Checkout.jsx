@@ -5,13 +5,18 @@ import { stripePromise } from "../utils/stripe";
 import PaymentForm from "./PaymentForm";
 
 const Checkout = () => {
-  const cartItems = useSelector(state => state.cart.cartItems);
-  const totalAmount = cartItems.reduce((acc, item) => acc + item.price, 0);
+  const cartItems = useSelector(state => state.cart.cartItems) || [];
+  const totalAmount = cartItems.reduce((acc, item) => acc + (item.price || 0), 0);
 
   return (
-    <Elements stripe={stripePromise}>
-      <PaymentForm amount={totalAmount} />
-    </Elements>
+    <div className="checkout-container">
+      <h2>Checkout</h2>
+      <p>Total Amount: ₹{totalAmount}</p>
+
+      <Elements stripe={stripePromise}>
+        <PaymentForm amount={totalAmount} />
+      </Elements>
+    </div>
   );
 };
 

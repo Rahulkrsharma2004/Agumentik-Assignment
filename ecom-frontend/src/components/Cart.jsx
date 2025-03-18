@@ -61,7 +61,7 @@ const Cart = () => {
           <div className="cart-summary">
             <h3>Total: ₹{totalPrice}</h3>
             {user ? (
-              <Link to="/checkout" className="checkout-btn">Proceed to Checkout</Link>
+              <Link to="/payment" className="checkout-btn">Proceed to Payment</Link>
             ) : (
               <Link to="/login" className="login-btn">Login to Checkout</Link>
             )}
