@@ -12,7 +12,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/products"); // Navigate after state updates
+      navigate("/products");
     }
   }, [isLoggedIn, navigate]);
 
