@@ -9,13 +9,13 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link  className="logo">E-Shop</Link>
+      <Link to="/"  className="logo">E-Shop</Link>
 
       <div className="nav-links">
-        {/* <Link to="/cart" className="cart-icon">
+        <Link to="/cart" className="cart-icon">
           🛒 Cart 
-          {cart.items.length > 0 && <span className="cart-count">{cart.items.length}</span>}
-        </Link> */}
+          {cart.cartItems.length > 0 && <span className="cart-count">{cart.items.length}</span>}
+        </Link>
         {user ? (
           <button className="logout-btn">Logout</button>
         ) : (
