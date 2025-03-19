@@ -11,7 +11,7 @@ const Orders = () => {
       try {
         const { data } = await axios.get(
           "https://ecommerce-backend-phi-green.vercel.app/api/orders",
-          { headers: { Authorization: `Bearer ${token}` } }
+          
         );
         setOrders(data);
       } catch (error) {
