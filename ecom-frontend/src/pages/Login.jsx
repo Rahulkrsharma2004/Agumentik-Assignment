@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"; // Import useDispatch
+import { login } from "../redux/authSlice"; // Import login action
 import axios from "axios";
 import "../styles/Auth.css";
 
@@ -7,9 +9,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,12 +22,15 @@ const Login = () => {
         { email, password }
       );
 
-      console.log(response.data);
-
-      if (response.data.message == "Login successful") {
+      if (response.data.message === "Login successful") {
         alert("Login Successful!");
         localStorage.setItem("token", response.data.token);
-        setIsLoggedIn(true);
+        
+        // ✅ Dispatch the login action to update Redux state immediately
+        dispatch(login(true));
+
+        console.log("User logged in:", response.data.user);
+
         navigate("/products");
       } else {
         alert(response.data.message || "Invalid credentials!");

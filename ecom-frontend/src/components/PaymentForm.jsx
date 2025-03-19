@@ -38,7 +38,7 @@ const PaymentForm = ({ amount }) => {
 
       if (result.paymentIntent?.status === "succeeded") {
         const token = localStorage.getItem("token");
-        const cartItems = JSON.parse(localStorage.getItem("cart")) || []; // Get cart items
+        const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
         const orderData = {
           products: cartItems,

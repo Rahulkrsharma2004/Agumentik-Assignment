@@ -1,14 +1,16 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/authSlice"; // Import the logout action from your auth slice
-import "../styles/Navbar.css"; // Import custom CSS
+import { logout } from "../redux/authSlice";
+import "../styles/Navbar.css";
 
 const Navbar = () => {
   const cart = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.user); // Get user from Redux
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  console.log("Redux user state:", user); // 🔍 Debugging: Log user state
 
   const handleLogout = () => {
     dispatch(logout());
