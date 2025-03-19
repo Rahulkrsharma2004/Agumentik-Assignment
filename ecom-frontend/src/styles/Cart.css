@@ -82,7 +82,6 @@
     padding: 20px;
   }
   
-  /* Responsive Design */
   @media (max-width: 768px) {
     .cart-container {
       padding: 15px;

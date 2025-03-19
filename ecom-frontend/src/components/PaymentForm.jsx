@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../styles/PaymentForm.css"; 
+import "../styles/PaymentForm.css";
 
 const PaymentForm = ({ amount }) => {
   const stripe = useStripe();
@@ -47,8 +47,8 @@ const PaymentForm = ({ amount }) => {
 
         await axios.post(
           "https://ecommerce-backend-phi-green.vercel.app/api/orders/add",
-          orderData,{withCredentials: true}
-          
+          orderData,
+          { withCredentials: true }
         );
 
         navigate("/success");
@@ -67,8 +67,24 @@ const PaymentForm = ({ amount }) => {
     <div className="payment-form">
       <h2>Complete Your Payment</h2>
       <div className="card-wrapper">
-        <CardElement className="card-element" />
+        <CardElement
+          className="card-element"
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#aab7c4",
+                },
+              },
+            },
+          }}
+        />
       </div>
+      <p className="test-card-info">
+        Use <strong>4242 4242 4242 4242</strong> (Visa test card) with any future date & any CVC with 00000(ZIP).
+      </p>
       {error && <p className="error">{error}</p>}
       <button
         className="pay-btn"

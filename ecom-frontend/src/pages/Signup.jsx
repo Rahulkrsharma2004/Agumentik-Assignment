@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/Auth.css"; // Custom CSS
+import "../styles/Auth.css"; 
 
 const Signup = () => {
   const [name, setName] = useState("");

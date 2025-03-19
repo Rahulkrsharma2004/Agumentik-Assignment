@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux"; // Import useDispatch
-import { login } from "../redux/authSlice"; // Import login action
+import { useDispatch } from "react-redux"; 
+import { login } from "../redux/authSlice"; 
 import axios from "axios";
 import "../styles/Auth.css";
 
@@ -26,7 +26,6 @@ const Login = () => {
         alert("Login Successful!");
         localStorage.setItem("token", response.data.token);
         
-        // ✅ Dispatch the login action to update Redux state immediately
         dispatch(login(true));
 
         console.log("User logged in:", response.data.user);

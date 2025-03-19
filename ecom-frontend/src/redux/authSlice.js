@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Load user from local storage if available
 const storedUser = localStorage.getItem("token");
 
 const initialState = { user: storedUser ? true : null };
