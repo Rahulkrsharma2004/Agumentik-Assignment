@@ -24,7 +24,7 @@ const PaymentForm = ({ amount }) => {
     try {
       // Send payment amount to backend to create PaymentIntent
       const { data } = await axios.post(
-        "https://ecommerce-backend-phi-green.vercel.app/api/create-payment-intent",
+        "https://ecommerce-backend-phi-green.vercel.app/api/payment/create-payment-intent",
         { amount }
       );
 

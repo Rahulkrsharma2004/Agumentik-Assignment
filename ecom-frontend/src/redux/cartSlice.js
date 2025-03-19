@@ -6,6 +6,9 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    setCart: (state, action) => {  // ✅ NEW: Store API cart data in Redux
+      state.cartItems = action.payload;
+    },
     addToCart: (state, action) => {
       state.cartItems.push(action.payload);
     },
@@ -18,5 +21,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { setCart, addToCart, removeFromCart, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

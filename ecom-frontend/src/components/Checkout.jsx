@@ -11,7 +11,7 @@ const Checkout = () => {
   return (
     <div className="checkout-container">
       <h2>Checkout</h2>
-      <p>Total Amount: ₹{totalAmount}</p>
+      <p style={{textAlign:"center",fontSize:"40px"}}>Total Amount: ₹{totalAmount}</p>
 
       <Elements stripe={stripePromise}>
         <PaymentForm amount={totalAmount} />

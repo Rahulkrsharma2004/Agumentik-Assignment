@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "../styles/Cart.css"; // Import the stylesheet
+import "../styles/Cart.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { setCart } from "../redux/cartSlice";  // ✅ Import `setCart`
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const cartItems = useSelector(state => state.cart.cartItems); // ✅ Get cart data from Redux
   const user = useSelector(state => state.auth?.user);
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         const res = await axios.get("https://ecommerce-backend-phi-green.vercel.app/api/carts/");
-        setCartItems(res.data.myCart || []);
+        dispatch(setCart(res.data.myCart || [])); // ✅ Store API cart data in Redux
       } catch (error) {
         console.error("Error fetching cart items", error);
       } finally {
@@ -24,7 +26,7 @@ const Cart = () => {
     };
 
     fetchCartItems();
-  }, []);
+  }, [dispatch]);
 
   const totalPrice = cartItems.reduce((acc, item) => acc + (item.price || 0), 0);
 
@@ -61,7 +63,7 @@ const Cart = () => {
           <div className="cart-summary">
             <h3>Total: ₹{totalPrice}</h3>
             {user ? (
-              <Link to="/payment" className="checkout-btn">Proceed to Payment</Link>
+              <Link to="/checkout" className="checkout-btn">Proceed to Payment</Link>
             ) : (
               <Link to="/login" className="login-btn">Login to Checkout</Link>
             )}
