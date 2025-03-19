@@ -12,17 +12,16 @@ const PaymentForm = ({ amount }) => {
   const [error, setError] = useState(null);
 
   const handlePayment = async () => {
-    // Check if Stripe has loaded
     if (!stripe || !elements) {
       setError("Stripe is not loaded yet. Please wait a moment.");
       return;
     }
-    
+
     setLoading(true);
     setError(null);
 
     try {
-      // Send payment amount to backend to create PaymentIntent
+      // 1️⃣ Create PaymentIntent
       const { data } = await axios.post(
         "https://ecommerce-backend-phi-green.vercel.app/api/payment/create-payment-intent",
         { amount }
@@ -30,7 +29,7 @@ const PaymentForm = ({ amount }) => {
 
       console.log("PaymentIntent data:", data);
 
-      // Confirm card payment with the clientSecret from backend
+      // 2️⃣ Confirm Payment
       const result = await stripe.confirmCardPayment(data.clientSecret, {
         payment_method: { card: elements.getElement(CardElement) },
       });
@@ -38,8 +37,21 @@ const PaymentForm = ({ amount }) => {
       console.log("Payment result:", result);
 
       if (result.paymentIntent?.status === "succeeded") {
-        // Payment succeeded; show a success message and redirect
-        setTimeout(() => navigate("/success"), 2000);
+        const token = localStorage.getItem("token");
+        const cartItems = JSON.parse(localStorage.getItem("cart")) || []; // Get cart items
+
+        const orderData = {
+          products: cartItems,
+          totalPrice: amount,
+        };
+
+        await axios.post(
+          "https://ecommerce-backend-phi-green.vercel.app/api/orders/add",
+          orderData,{withCredentials: true}
+          
+        );
+
+        navigate("/success");
       } else {
         setError("Payment failed. Please try again.");
       }

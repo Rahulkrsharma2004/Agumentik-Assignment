@@ -5,11 +5,12 @@ import { store } from "./redux/store";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
-import Checkout from "./components/Checkout"; // Use Checkout instead of PaymentForm
+import Checkout from "./components/Checkout";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import Orders from "./pages/Order";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/products" element={<ProductList />} />
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/order" element={<Orders />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </Router>

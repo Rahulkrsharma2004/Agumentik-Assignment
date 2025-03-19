@@ -1,20 +1,28 @@
 const express = require('express');
 const Order = require('../models/orderModel.js');
-const authMiddleware = require('../middleware/authMiddleware.js');
 
 const router = express.Router();
 
-// Get user orders
-router.get('/', authMiddleware, async (req, res) => {
-    const orders = await Order.find({ user: req.user.id });
-    res.json(orders);
+// ✅ Get all orders (No Auth)
+router.get('/', async (req, res) => {
+    try {
+        const orders = await Order.find(); // No user-specific filter
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching orders" });
+    }
 });
 
-router.post('/', authMiddleware, async (req, res) => {
-    const { products, totalPrice } = req.body;
-    const order = new Order({ user: req.user.id, products, totalPrice });
-    await order.save();
-    res.status(201).json(order);
+// ✅ Create order (No Auth)
+router.post('/add', async (req, res) => {
+    try {
+        const { products, totalPrice } = req.body;
+        const order = new Order({ products, totalPrice }); // No user ID required
+        await order.save();
+        res.status(201).json(order);
+    } catch (error) {
+        res.status(500).json({ message: "Error creating order" });
+    }
 });
 
 module.exports = router;
