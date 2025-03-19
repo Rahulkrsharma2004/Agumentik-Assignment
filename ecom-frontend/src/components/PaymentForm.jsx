@@ -28,14 +28,18 @@ const PaymentForm = ({ amount }) => {
         { amount }
       );
 
+      console.log("PaymentIntent data:", data);
+
       // Confirm card payment with the clientSecret from backend
       const result = await stripe.confirmCardPayment(data.clientSecret, {
         payment_method: { card: elements.getElement(CardElement) },
       });
 
+      console.log("Payment result:", result);
+
       if (result.paymentIntent?.status === "succeeded") {
         // Payment succeeded; show a success message and redirect
-        setTimeout(() => navigate("/products"), 2000);
+        setTimeout(() => navigate("/success"), 2000);
       } else {
         setError("Payment failed. Please try again.");
       }
